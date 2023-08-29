@@ -10,7 +10,6 @@ export class PostRepository implements IPostRepository {
 			content: body.content,
 			dateCreated: new Date(),
 		} as Post;
-
 		posts.push(data);
 		return body;
 	};
