@@ -12,18 +12,21 @@ import {
 } from './ui/dialog';
 import { PostRepositoryClient } from '@/gateways/client/PostRepositoryClient';
 import { deletePost } from '@/use-cases/Post';
+import { useAppDispatch } from '@/redux/hooks';
+import { filterPosts } from '@/redux/reducers/postSlice';
 
 type PostCardProps = {
 	post: Post;
 };
 
 const DeletePostModal = ({ postId }: { postId: string }) => {
-	const router = useRouter();
 	const repo = new PostRepositoryClient();
+	const displatch = useAppDispatch();
+
 	const deleteHandler = async () => {
 		await deletePost(repo, postId);
 
-		router.push('/');
+		displatch(filterPosts(postId));
 	};
 
 	return (
