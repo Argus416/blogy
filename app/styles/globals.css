@@ -5,6 +5,7 @@
 @layer base {
 	body {
 		background: linear-gradient(to bottom, #d6e1f1, #c6a0ea);
+		min-height: 100vh;
 	}
 	:root {
 		--background: 0 0% 100%;
