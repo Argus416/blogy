@@ -1,8 +1,8 @@
-import { FomratedPost } from "@/entities/Post";
+import { Post } from "@prisma/client";
 import Link from "next/link";
 
 type PostCardProps = {
-  post: FomratedPost;
+  post: Post;
 };
 
 export default function PostCard({ post }: PostCardProps) {

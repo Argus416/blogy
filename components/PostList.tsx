@@ -2,14 +2,14 @@ import { getPosts } from "@/use-cases/Post";
 import PostCard from "./PostCard";
 import { PostRepository } from "@/gateways/PostRepository";
 import { Suspense } from "react";
-import { FomratedPost } from "@/entities/Post";
+import { Post } from "@prisma/client";
 
 export default async function PostList() {
   const repo = new PostRepository();
 
   const posts = await getPosts(repo);
 
-  function chunkArray(array: FomratedPost[], chunkSize: number) {
+  function chunkArray(array: Post[], chunkSize: number) {
     const result = [];
     for (let i = 0; i < array.length; i += chunkSize) {
       result.push(array.slice(i, i + chunkSize));
@@ -29,7 +29,7 @@ export default async function PostList() {
               postChunk.length < 4 ? "justify-center" : "justify-between"
             }`}
           >
-            {postChunk.map((post: FomratedPost) => (
+            {postChunk.map((post: Post) => (
               <PostCard key={post.id} post={post} />
             ))}
           </div>
