@@ -1,10 +1,10 @@
 'use client';
-import { PostRepositoryServer } from '@/gateways/server/PostRepositoryServer';
-import axios from 'axios';
+import { PostRepositoryClient } from '@/gateways/client/PostRepositoryClient';
+import { createPost } from '@/use-cases/Post';
 import { useRouter } from 'next/navigation';
 
 export default function CreatePost() {
-	const repo = new PostRepositoryServer();
+	const repo = new PostRepositoryClient();
 
 	const { push } = useRouter();
 
@@ -19,6 +19,8 @@ export default function CreatePost() {
 				alert('Please fill all fields');
 				return;
 			}
+
+			createPost(repo, { title, content });
 
 			alert('Post created');
 			push('/');

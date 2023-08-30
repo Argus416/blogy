@@ -1,10 +1,8 @@
 'use client';
-import { PostRepositoryClient } from '@/gateways/client/PostRepositoryClient';
-import { Post } from '@prisma/client';
-import { useSelector } from 'react-redux';
-import PostCard from './PostCard';
-import _ from 'lodash';
 import { useAppSelector } from '@/redux/hooks';
+import { Post } from '@prisma/client';
+import _ from 'lodash';
+import PostCard from './PostCard';
 
 export default function PostList() {
 	const posts = useAppSelector((state) => state.postReducer.posts);

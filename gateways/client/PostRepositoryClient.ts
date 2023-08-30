@@ -1,11 +1,11 @@
-import { prisma } from '@/db';
 import { IPostRepository } from '@/gateways/IPostRepository';
+import { axiosClient } from '@/lib/axiosClient';
 import { Prisma } from '@prisma/client';
 import axios from 'axios';
 
 export class PostRepositoryClient implements IPostRepository {
 	createPost = async (body: Prisma.PostCreateInput) => {
-		const response = await axios('/api/post', {
+		const response = await axiosClient('/post', {
 			method: 'POST',
 			data: {
 				title: body.title,
@@ -16,21 +16,26 @@ export class PostRepositoryClient implements IPostRepository {
 	};
 
 	getPosts = async () => {
-		const response = await axios('/api/post/all', {
+		const response = await axiosClient('/post/all', {
 			method: 'GET',
 		});
 		return response.data;
 	};
 
 	getPostById = async (id: string) => {
-		const response = await axios(`/api/post/${id}`, {
-			method: 'GET',
-		});
-		return response.data;
+		try {
+			const response = await axiosClient(`/post/${id}`, {
+				method: 'GET',
+			});
+
+			return response.data;
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	deletePost = async (id: string) => {
-		const response = await axios(`/api/post/${id}`, {
+		const response = await axiosClient(`/post/${id}`, {
 			method: 'DELETE',
 		});
 		return response.data;

@@ -1,5 +1,5 @@
 import DetailedPostView from '@/components/DetailedPostView';
-import { PostRepository } from '@/gateways/server/PostRepositoryServer';
+import { PostRepositoryClient } from '@/gateways/client/PostRepositoryClient';
 import { getPostById } from '@/use-cases/Post';
 import Link from 'next/link';
 import React, { Suspense } from 'react';
@@ -9,7 +9,7 @@ type PostDetailsProps = {
 };
 
 export default async function PostDetails({ params }: PostDetailsProps) {
-	const repo = new PostRepository();
+	const repo = new PostRepositoryClient();
 	const post = await getPostById(repo, params.postId);
 
 	if (!post) {
