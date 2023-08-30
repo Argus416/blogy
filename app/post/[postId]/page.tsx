@@ -17,10 +17,11 @@ export default async function PostDetails({ params }: PostDetailsProps) {
 	}
 	return (
 		<div>
-			<Link href='/'>go home</Link>
-			<Suspense fallback={<div>Loading...</div>}>
-				<DetailedPostView post={post} />
-			</Suspense>
+			<div>
+				<Suspense fallback={<div>Loading...</div>}>
+					<DetailedPostView post={post} />
+				</Suspense>
+			</div>
 		</div>
 	);
 }
