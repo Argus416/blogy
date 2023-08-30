@@ -1,4 +1,4 @@
-import { PostRepository } from '../gateways/PostRepository';
+import { PostRepositoryServer } from '@/gateways/server/PostRepositoryServer';
 import { createPost, deletePost, getPostById, getPosts } from '../use-cases/Post';
 import { Post, Prisma } from '@prisma/client';
 import { faker } from '@faker-js/faker';
@@ -10,7 +10,7 @@ const newPost = {
 } as Prisma.PostCreateInput;
 
 let post = {} as Post;
-const postRepository = new PostRepository();
+const postRepository = new PostRepositoryServer();
 
 describe('CRUD POST', () => {
 	it('should create a post', async () => {
