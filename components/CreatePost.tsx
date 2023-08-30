@@ -1,64 +1,80 @@
-'use client';
-import { PostRepository } from '@/gateways/PostRepository';
-import { createPost } from '@/use-cases/Post';
-import { useRouter } from 'next/navigation';
+"use client";
+import { PostRepository } from "@/gateways/PostRepository";
+import { createPost } from "@/use-cases/Post";
+import { useRouter } from "next/navigation";
 
 export default function CreatePost() {
-	const repo = new PostRepository();
+  const repo = new PostRepository();
 
-	const { push } = useRouter();
+  const { push } = useRouter();
 
-	const handleSubmit = (event: any) => {
-		event.preventDefault();
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
 
-		const title = event.target.title.value;
-		const content = event.target.content.value;
+    const title = event.target.title.value;
+    const content = event.target.content.value;
 
-		if (title === '' || content === '') {
-			alert('Please fill all fields');
-			return;
-		}
+    if (title === "" || content === "") {
+      alert("Please fill all fields");
+      return;
+    }
 
-		createPost(repo, { title, content });
+    createPost(repo, { title, content });
 
-		alert('Post created');
-		push('/');
-	};
+    alert("Post created");
+    push("/");
+  };
 
-	return (
-		<div>
-			<h1>Create Post</h1>
+  return (
+    <div className=" max-w-xl container mx-auto ">
+      <div className=" w-full">
+        <p className="text-center text-neutral-600 text-base font-light">
+          Create Post
+        </p>
+        <div className="mt-10">
+          <form action="" className="px-10" onSubmit={handleSubmit}>
+            <div className="mt-2 ">
+              <label
+                htmlFor="title"
+                className="text-neutral-600 text-base font-normal"
+              >
+                Post Title :
+              </label>
+              <div className="flex my-3 items-center justify-between bg-zinc-100 rounded-lg  ">
+                <input
+                  type="text"
+                  name="title"
+                  id="title"
+                  className="w-full text-neutral-600 placeholder:text-neutral-600 px-4 bg-transparent outline-none"
+                />
+              </div>
+            </div>
 
-			<form
-				className='flex flex-col  gap-2'
-				onSubmit={handleSubmit}
-			>
-				<div>
-					<label htmlFor='title'>Title</label>
-					<input
-						className='border-2 border-gray-500'
-						type='text'
-						name='title'
-						id='title'
-					/>
-				</div>
-				<div>
-					<label htmlFor='content'>Content</label>
-					<textarea
-						className='border-2 border-gray-500'
-						name='content'
-						id='content'
-						cols={30}
-						rows={10}
-					></textarea>
-				</div>
-				<button
-					className='bg-blue-500 text-white'
-					type='submit'
-				>
-					Create
-				</button>
-			</form>
-		</div>
-	);
+            <div className="mt-6 ">
+              <label
+                htmlFor="content"
+                className="text-neutral-600 text-base font-normal"
+              >
+                Content :
+              </label>
+              <div className="flex my-3 items-center justify-between bg-zinc-100 rounded-lg  ">
+                <textarea
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  name="content"
+                  id="content"
+                ></textarea>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="bg-indigo-900 rounded-lg shadow text-center text-white text-base font-semibold w-full py-3 mt-9"
+            >
+              Create
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 }
