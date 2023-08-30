@@ -1,16 +1,18 @@
-import { PostRepository } from '@/gateways/PostRepository';
+import { PostRepositoryClient } from '@/gateways/client/PostRepositoryClient';
 import { getPosts } from '@/use-cases/Post';
 import { Post } from '@prisma/client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-const postRepository = new PostRepository();
+const postRepository = new PostRepositoryClient();
 
-export const fetchPosts = createAsyncThunk('users/fetchUsers', async () => {
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
 	const response = await getPosts(postRepository);
 	return response;
 });
 
-const initialState: Post[] = [];
+const initialState = {
+	posts: [] as Post[],
+};
 
 export const postSlice = createSlice({
 	name: 'posts',
@@ -19,7 +21,10 @@ export const postSlice = createSlice({
 
 	extraReducers(builder) {
 		builder.addCase(fetchPosts.fulfilled, (state, action) => {
-			return action.payload;
+			state.posts = action.payload;
+
+			console.log(action.payload);
+			return state;
 		});
 	},
 });

@@ -1,23 +1,27 @@
-import { getPosts } from '@/use-cases/Post';
+'use client';
+import { PostRepositoryClient } from '@/gateways/client/PostRepositoryClient';
+import { Post } from '@prisma/client';
+import { useSelector } from 'react-redux';
 import PostCard from './PostCard';
-import { PostRepository } from '@/gateways/PostRepository';
-import { Suspense } from 'react';
+import _ from 'lodash';
+import { useAppSelector } from '@/redux/hooks';
 
-export default async function PostList() {
-	const repo = new PostRepository();
-
-	const posts = await getPosts(repo);
+export default function PostList() {
+	const posts = useAppSelector((state) => state.postReducer.posts);
 
 	return (
 		<div>
-			<Suspense fallback={<div>Loading...</div>}>
-				{posts.map((post) => (
+			<h1>all posts</h1>
+			{_.isEmpty(posts) ? (
+				<span>no post</span>
+			) : (
+				posts?.map((post: Post) => (
 					<PostCard
 						key={post.id}
 						post={post}
 					/>
-				))}
-			</Suspense>
+				))
+			)}
 		</div>
 	);
 }

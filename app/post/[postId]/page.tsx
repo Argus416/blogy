@@ -1,5 +1,5 @@
 import DetailedPostView from '@/components/DetailedPostView';
-import { PostRepository } from '@/gateways/PostRepository';
+import { PostRepository } from '@/gateways/server/PostRepositoryServer';
 import { getPostById } from '@/use-cases/Post';
 import Link from 'next/link';
 import React, { Suspense } from 'react';
