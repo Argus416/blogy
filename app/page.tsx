@@ -5,7 +5,6 @@ import { Suspense } from 'react';
 export default function Home() {
 	return (
 		<div>
-			<Link href='/post/new'>Create post</Link>
 			<PostList />
 		</div>
 	);
