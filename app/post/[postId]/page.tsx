@@ -2,16 +2,15 @@ import DetailedPostView from '@/components/DetailedPostView';
 import { PostRepository } from '@/gateways/PostRepository';
 import { getPostById } from '@/use-cases/Post';
 import Link from 'next/link';
-import React from 'react';
+import React, { Suspense } from 'react';
 
 type PostDetailsProps = {
 	params: { postId: string };
 };
 
-export default function PostDetails({ params }: PostDetailsProps) {
-	console.log(params.postId);
+export default async function PostDetails({ params }: PostDetailsProps) {
 	const repo = new PostRepository();
-	const post = getPostById(repo, parseInt(params.postId));
+	const post = await getPostById(repo, params.postId);
 
 	if (!post) {
 		return <div>Post not found</div>;
@@ -19,7 +18,9 @@ export default function PostDetails({ params }: PostDetailsProps) {
 	return (
 		<div>
 			<Link href='/'>go home</Link>
-			<DetailedPostView post={post!} />
+			<Suspense fallback={<div>Loading...</div>}>
+				<DetailedPostView post={post} />
+			</Suspense>
 		</div>
 	);
 }

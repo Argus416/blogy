@@ -1,10 +1,7 @@
-import { FomratedPost } from '@/entities/Post';
-import { getPostById } from '@/use-cases/Post';
-import Link from 'next/link';
-import React from 'react';
+import { Post } from '@prisma/client';
 
 type DetailedPostViewProps = {
-	post: FomratedPost;
+	post: Post;
 };
 
 export default function DetailedPostView({ post }: DetailedPostViewProps) {

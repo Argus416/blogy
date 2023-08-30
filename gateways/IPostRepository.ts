@@ -1,9 +1,8 @@
-import { FomratedPost, Post, NewPost } from '@/entities/Post';
-import { Prisma } from '@prisma/client';
+import { Prisma, Post } from '@prisma/client';
 
 export interface IPostRepository {
-	getPosts(): Post[];
-	getPostById(id: number): FomratedPost | undefined;
-	createPost(post: NewPost): void;
-	deletePost(id: number): void;
+	createPost(post: Prisma.PostCreateInput): Promise<Post>;
+	deletePost(id: string): Promise<Post | null>;
+	getPostById(id: string): Promise<Post | null>;
+	getPosts(): Promise<Post[]>;
 }

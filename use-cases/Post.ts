@@ -1,18 +1,21 @@
-import { NewPost } from '@/entities/Post';
 import { IPostRepository } from '@/gateways/IPostRepository';
+import { Prisma } from '@prisma/client';
 
-export const createPost = (repository: IPostRepository, post: NewPost) => {
-	return repository.createPost(post);
+export const createPost = async (
+	repository: IPostRepository,
+	post: Prisma.PostCreateInput
+) => {
+	return await repository.createPost(post);
 };
 
-export const getPosts = (repository: IPostRepository) => {
-	return repository.getPosts();
+export const getPosts = async (repository: IPostRepository) => {
+	return await repository.getPosts();
 };
 
-export const getPostById = (repository: IPostRepository, id: number) => {
-	return repository.getPostById(id);
+export const getPostById = async (repository: IPostRepository, id: string) => {
+	return await repository.getPostById(id);
 };
 
-export const deletePost = (repository: IPostRepository, id: number) => {
-	return repository.deletePost(id);
+export const deletePost = async (repository: IPostRepository, id: string) => {
+	return await repository.deletePost(id);
 };

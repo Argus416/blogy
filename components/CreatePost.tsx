@@ -1,6 +1,6 @@
 'use client';
 import { PostRepository } from '@/gateways/PostRepository';
-import { createPost } from '@/use-cases/Post';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
 export default function CreatePost() {
@@ -8,21 +8,31 @@ export default function CreatePost() {
 
 	const { push } = useRouter();
 
-	const handleSubmit = (event: any) => {
+	const handleSubmit = async (event: any) => {
 		event.preventDefault();
 
-		const title = event.target.title.value;
-		const content = event.target.content.value;
+		try {
+			const title = event.target.title.value;
+			const content = event.target.content.value;
 
-		if (title === '' || content === '') {
-			alert('Please fill all fields');
-			return;
+			if (title === '' || content === '') {
+				alert('Please fill all fields');
+				return;
+			}
+
+			await axios('/api/post', {
+				method: 'POST',
+				data: {
+					title,
+					content,
+				},
+			});
+
+			alert('Post created');
+			push('/');
+		} catch (err) {
+			console.error(err);
 		}
-
-		createPost(repo, { title, content });
-
-		alert('Post created');
-		push('/');
 	};
 
 	return (
