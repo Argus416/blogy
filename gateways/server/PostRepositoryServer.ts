@@ -1,9 +1,8 @@
 import { prisma } from '@/db';
-import { NewPost } from '@/entities/Post';
-import { IPostRepository } from './IPostRepository';
+import { IPostRepository } from '@/gateways/IPostRepository';
 import { Prisma } from '@prisma/client';
 
-export class PostRepository implements IPostRepository {
+export class PostRepositoryServer implements IPostRepository {
 	createPost = async (body: Prisma.PostCreateInput) => {
 		const { title, content } = body;
 		const result = await prisma.post.create({

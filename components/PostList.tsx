@@ -1,8 +1,8 @@
-import { getPosts } from "@/use-cases/Post";
-import PostCard from "./PostCard";
-import { PostRepository } from "@/gateways/PostRepository";
-import { Suspense } from "react";
-import { FomratedPost } from "@/entities/Post";
+'use client';
+import { useAppSelector } from '@/redux/hooks';
+import { Post } from '@prisma/client';
+import _ from 'lodash';
+import PostCard from './PostCard';
 
 export default async function PostList() {
   const repo = new PostRepository();
@@ -21,20 +21,27 @@ export default async function PostList() {
 
   return (
     <div>
-      <Suspense fallback={<div>Loading...</div>}>
-        {chunkedPosts.map((postChunk, index) => (
-          <div
-            key={index}
-            className={`flex ${
-              postChunk.length < 4 ? "justify-center" : "justify-between"
-            }`}
-          >
-            {postChunk.map((post: FomratedPost) => (
-              <PostCard key={post.id} post={post} />
-            ))}
-          </div>
-        ))}
-      </Suspense>
+		{
+			_.isEmpty(posts) ? (
+				<div className='text-center text-2xl text-neutral-600 font-semibold'>
+					No posts found
+				</div>
+				:chunkedPosts.map((postChunk, index) => (
+					<div
+					  key={index}
+					  className={`flex ${
+						postChunk.length < 4 ? "justify-center" : "justify-between"
+					  }`}
+					>
+					  {postChunk.map((post Post) => (
+						<PostCard key={post.id} post={post} />
+					  ))}
+					</div>
+				  ))
+				
+		}
+
+        
     </div>
   );
 }
