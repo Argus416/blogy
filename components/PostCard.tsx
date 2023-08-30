@@ -77,7 +77,9 @@ export default function PostCard({ post }: PostCardProps) {
 						View
 					</Button>
 
-					<Button>Edit</Button>
+					<Button onClick={() => router.push(`/post/${post.id}/update`)}>
+						Edit
+					</Button>
 					<DeletePostModal postId={post.id} />
 					{/* <Button className='bg-red-500 text-white hover:bg-red-500/75'>
 						Delete

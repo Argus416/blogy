@@ -4,17 +4,6 @@ import { Prisma } from '@prisma/client';
 import axios from 'axios';
 
 export class PostRepositoryClient implements IPostRepository {
-	createPost = async (body: Prisma.PostCreateInput) => {
-		const response = await axiosClient('/post', {
-			method: 'POST',
-			data: {
-				title: body.title,
-				content: body.content,
-			},
-		});
-		return response.data;
-	};
-
 	getPosts = async () => {
 		const response = await axiosClient('/post/all', {
 			method: 'GET',
@@ -34,6 +23,24 @@ export class PostRepositoryClient implements IPostRepository {
 		}
 	};
 
+	createPost = async (body: Prisma.PostCreateInput) => {
+		const response = await axiosClient('/post', {
+			method: 'POST',
+			data: {
+				title: body.title,
+				content: body.content,
+			},
+		});
+		return response.data;
+	};
+
+	updatePost = async (id: string, body: Prisma.PostUpdateInput) => {
+		const response = await axiosClient(`/post/${id}`, {
+			method: 'PATCH',
+			data: body,
+		});
+		return response.data;
+	};
 	deletePost = async (id: string) => {
 		const response = await axiosClient(`/post/${id}`, {
 			method: 'DELETE',

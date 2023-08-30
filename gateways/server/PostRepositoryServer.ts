@@ -3,6 +3,25 @@ import { IPostRepository } from '@/gateways/IPostRepository';
 import { Prisma } from '@prisma/client';
 
 export class PostRepositoryServer implements IPostRepository {
+	getPosts = async () => {
+		const result = await prisma.post.findMany({
+			orderBy: {
+				createdAt: 'desc',
+			},
+		});
+		return result;
+	};
+
+	getPostById = async (id: string) => {
+		const result = await prisma.post.findUnique({
+			where: {
+				id: id,
+			},
+		});
+
+		return result;
+	};
+
 	createPost = async (body: Prisma.PostCreateInput) => {
 		const { title, content } = body;
 		const result = await prisma.post.create({
@@ -15,16 +34,12 @@ export class PostRepositoryServer implements IPostRepository {
 		return result;
 	};
 
-	getPosts = async () => {
-		const result = await prisma.post.findMany();
-		return result;
-	};
-
-	getPostById = async (id: string) => {
-		const result = await prisma.post.findUnique({
+	updatePost = async (id: string, body: Prisma.PostUpdateInput) => {
+		const result = await prisma.post.update({
 			where: {
 				id: id,
 			},
+			data: body,
 		});
 
 		return result;
