@@ -10,7 +10,7 @@ export default function PostList() {
 	const chunkedPosts = _.chunk(posts, 4);
 
 	return (
-		<div>
+		<>
 			{_.isEmpty(posts) ? (
 				<div className='text-center text-2xl text-neutral-600 font-semibold'>
 					No posts found
@@ -32,6 +32,6 @@ export default function PostList() {
 					</div>
 				))
 			)}
-		</div>
+		</>
 	);
 }
