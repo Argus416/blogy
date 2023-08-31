@@ -24,6 +24,13 @@ export class PostRepositoryClient implements IPostRepository {
 	};
 
 	createPost = async (body: Prisma.PostCreateInput) => {
+		const { title, content } = body;
+
+		if (title === '' || content === '') {
+			alert('Please fill all fields');
+			throw new Error('Please fill all fields');
+		}
+
 		const response = await axiosClient('/post', {
 			method: 'POST',
 			data: {
@@ -35,6 +42,13 @@ export class PostRepositoryClient implements IPostRepository {
 	};
 
 	updatePost = async (id: string, body: Prisma.PostUpdateInput) => {
+		const { title, content } = body;
+
+		if (title === '' || content === '') {
+			alert('Please fill all fields');
+			throw new Error('Please fill all fields');
+		}
+
 		const response = await axiosClient(`/post/${id}`, {
 			method: 'PATCH',
 			data: body,
