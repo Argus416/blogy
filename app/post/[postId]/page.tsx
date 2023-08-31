@@ -33,10 +33,10 @@ export default function PostDetails({ params }: PostDetailsProps) {
 		return <div>Post not found</div>;
 	}
 	return (
-		<div>
+		<>
 			<Link href='/'>go home</Link>
 
 			<DetailedPostView post={post} />
-		</div>
+		</>
 	);
 }

@@ -10,11 +10,7 @@ function Home() {
 		dispatch(fetchPosts());
 	}, [dispatch]);
 
-	return (
-		<div>
-			<PostList />
-		</div>
-	);
+	return <PostList />;
 }
 
 export default Home;

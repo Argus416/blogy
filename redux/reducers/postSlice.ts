@@ -17,7 +17,11 @@ const initialState = {
 export const postSlice = createSlice({
 	name: 'posts',
 	initialState,
-	reducers: {},
+	reducers: {
+		filterPosts: (state, action) => {
+			state.posts = state.posts.filter((post) => post.id !== action.payload);
+		},
+	},
 
 	extraReducers(builder) {
 		builder.addCase(fetchPosts.fulfilled, (state, action) => {
@@ -30,6 +34,6 @@ export const postSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const {} = postSlice.actions;
+export const { filterPosts } = postSlice.actions;
 
 export default postSlice.reducer;
