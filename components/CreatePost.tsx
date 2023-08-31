@@ -4,15 +4,17 @@ import { createPost } from '@/use-cases/Post';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { useState } from 'react';
 
 export default function CreatePost() {
 	const repo = new PostRepositoryClient();
+	const [isDisabaled, setIsDisabled] = useState(false);
 
 	const { push } = useRouter();
 
 	const handleSubmit = async (event: any) => {
 		event.preventDefault();
-
+		setIsDisabled(true);
 		try {
 			const title = event.target.title.value;
 			const content = event.target.content.value;
@@ -24,6 +26,8 @@ export default function CreatePost() {
 		} catch (err) {
 			console.error(err);
 		}
+
+		setIsDisabled(false);
 	};
 
 	return (
@@ -71,6 +75,7 @@ export default function CreatePost() {
 						<button
 							type='submit'
 							className='block mx-auto bg-indigo-900 rounded-lg shadow text-center text-white text-base font-semibold w-1/2 py-3 mt-12'
+							disabled={isDisabaled}
 						>
 							Create
 						</button>
