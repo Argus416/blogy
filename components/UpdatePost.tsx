@@ -34,12 +34,7 @@ export default function UpdatePost({ postId }: UpdatePostProps) {
 			const title = event.target.title.value;
 			const content = event.target.content.value;
 
-			if (title === '' || content === '') {
-				alert('Please fill all fields');
-				return;
-			}
-
-			updatePost(repo, postId, { title, content });
+			await updatePost(repo, postId, { title, content });
 
 			alert('Post updated successfully');
 			push('/');
