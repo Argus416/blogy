@@ -1,5 +1,6 @@
 'use client';
 import DetailedPostView from '@/components/DetailedPostView';
+import Loading from '@/components/Loading';
 import { PostRepositoryClient } from '@/gateways/client/PostRepositoryClient';
 import { getPostById } from '@/use-cases/Post';
 import { Post } from '@prisma/client';
@@ -16,6 +17,7 @@ export default function PostDetails({ params }: PostDetailsProps) {
 	}, []);
 
 	const [post, setPost] = useState<Post | null>(null);
+	const [notFound, setNotFound] = useState(false);
 
 	useEffect(() => {
 		const fetchPost = async () => {
@@ -30,7 +32,7 @@ export default function PostDetails({ params }: PostDetailsProps) {
 		console.log({ post });
 	};
 	if (!post) {
-		return <div>Post not found</div>;
+		return <Loading/>;
 	}
 	return (
 		<>
