@@ -34,8 +34,6 @@ export default function PostDetails({ params }: PostDetailsProps) {
 	}
 	return (
 		<>
-			<Link href='/'>go home</Link>
-
 			<DetailedPostView post={post} />
 		</>
 	);
