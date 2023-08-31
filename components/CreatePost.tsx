@@ -17,12 +17,7 @@ export default function CreatePost() {
 			const title = event.target.title.value;
 			const content = event.target.content.value;
 
-			if (title === '' || content === '') {
-				alert('Please fill all fields');
-				return;
-			}
-
-			createPost(repo, { title, content });
+			await createPost(repo, { title, content });
 
 			alert('Post created');
 			push('/');
