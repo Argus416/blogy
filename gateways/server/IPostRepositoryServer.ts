@@ -1,6 +1,6 @@
-import { Prisma, Post } from '@prisma/client';
+import { Post, Prisma } from '@prisma/client';
 
-export interface IPostRepository {
+export interface IPostRepositoryServer {
 	getPosts(): Promise<Post[]>;
 	getPostById(id: string): Promise<Post | null>;
 	createPost(post: Prisma.PostCreateInput): Promise<Post>;

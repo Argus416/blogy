@@ -1,14 +1,17 @@
-import { IPostRepository } from '@/gateways/IPostRepository';
+import { postformater } from '@/entity/post';
+import { IPostRepositoryClient } from '@/gateways/client/IPostRepositoryClient';
 import { axiosClient } from '@/lib/axiosClient';
-import { Prisma } from '@prisma/client';
-import axios from 'axios';
+import { Post, Prisma } from '@prisma/client';
 
-export class PostRepositoryClient implements IPostRepository {
+export class PostRepositoryClient implements IPostRepositoryClient {
 	getPosts = async () => {
 		const response = await axiosClient('/post/all', {
 			method: 'GET',
 		});
-		return response.data;
+
+		const data = response.data.map((post: Post) => postformater(post));
+
+		return data;
 	};
 
 	getPostById = async (id: string) => {
@@ -16,8 +19,9 @@ export class PostRepositoryClient implements IPostRepository {
 			const response = await axiosClient(`/post/${id}`, {
 				method: 'GET',
 			});
+			const data = postformater(response.data);
 
-			return response.data;
+			return data;
 		} catch (err) {
 			console.log(err);
 		}

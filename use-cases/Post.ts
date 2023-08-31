@@ -1,4 +1,4 @@
-import { IPostRepository } from '@/gateways/IPostRepository';
+import { IPostRepository } from '@/gateways/client/IPostRepositoryClient';
 import { Prisma } from '@prisma/client';
 
 export const getPosts = async (repository: IPostRepository) => {

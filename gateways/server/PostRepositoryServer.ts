@@ -1,8 +1,8 @@
 import { prisma } from '@/db';
-import { IPostRepository } from '@/gateways/IPostRepository';
 import { Prisma } from '@prisma/client';
+import { IPostRepositoryServer } from './IPostRepositoryServer';
 
-export class PostRepositoryServer implements IPostRepository {
+export class PostRepositoryServer implements IPostRepositoryServer {
 	getPosts = async () => {
 		const result = await prisma.post.findMany({
 			orderBy: {
