@@ -3,6 +3,7 @@ import { useAppSelector } from '@/redux/hooks';
 import { Post } from '@prisma/client';
 import _ from 'lodash';
 import PostCard from './PostCard';
+import Loading from './Loading';
 
 export default function PostList() {
 	const posts = useAppSelector((state) => state.postReducer.posts);
@@ -12,9 +13,7 @@ export default function PostList() {
 	return (
 		<>
 			{_.isEmpty(posts) ? (
-				<div className='text-center text-2xl text-neutral-600 font-semibold'>
-					No posts found
-				</div>
+				<Loading/>
 			) : (
 				chunkedPosts.map((postChunk: any, index) => (
 					<div
